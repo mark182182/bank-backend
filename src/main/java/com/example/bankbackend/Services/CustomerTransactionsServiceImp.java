@@ -13,10 +13,14 @@ import java.util.List;
 
 @Service
 public class CustomerTransactionsServiceImp implements CustomerTransactionsService {
+  private CustomerTransactionsRepository customerTransactionsRepository;
+  private CustomerRepository customerRepository;
+
   @Autowired
-  CustomerTransactionsRepository customerTransactionsRepository;
-  @Autowired
-  CustomerRepository customerRepository;
+  public CustomerTransactionsServiceImp(CustomerTransactionsRepository customerTransactionsRepository, CustomerRepository customerRepository) {
+    this.customerTransactionsRepository = customerTransactionsRepository;
+    this.customerRepository = customerRepository;
+  }
 
   @Override
   public String sendMoney(long moneyAmount, long senderId, long receiverId) {
@@ -43,14 +47,32 @@ public class CustomerTransactionsServiceImp implements CustomerTransactionsServi
   @Override
   public List<CustomerTransactions> getAllTransactionsById(long customerId) {
     List<CustomerTransactions> transactionList = new ArrayList<>();
+    List<CustomerTransactions> filteredTransactions = new ArrayList<>();
     customerTransactionsRepository.findAll().forEach(transactionList::add);
-    return transactionList;
+    transactionList.forEach(currentTransaction -> {
+      if (currentTransaction.getFromAccount().equals(String.valueOf(customerId))) {
+        filteredTransactions.add(currentTransaction);
+      }
+    });
+    return filteredTransactions;
   }
 
   @Override
-  public List<CustomerTransactions> getTransactionById(long transactionId) {
+  public List<CustomerTransactions> getTransactionById(long customerId, long transactionId) {
+    List<CustomerTransactions> transactionList = new ArrayList<>();
+    List<CustomerTransactions> filteredTransactions = new ArrayList<>();
     List<CustomerTransactions> transactionById = new ArrayList<>();
-    transactionById.add(customerTransactionsRepository.findById(transactionId).get());
+    customerTransactionsRepository.findAll().forEach(transactionList::add);
+    transactionList.forEach(currentTransaction -> {
+      if (currentTransaction.getFromAccount().equals(String.valueOf(customerId))) {
+        filteredTransactions.add(currentTransaction);
+      }
+    });
+    for (int i = 0; i < filteredTransactions.size(); i++) {
+      if (filteredTransactions.get(i).getId() == (transactionId)) {
+        transactionById.add(filteredTransactions.get(i));
+      }
+    }
     return transactionById;
   }
 }

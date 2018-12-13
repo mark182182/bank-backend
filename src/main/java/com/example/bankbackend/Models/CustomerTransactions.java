@@ -16,7 +16,6 @@ public class CustomerTransactions {
   private long id;
 
   @ManyToOne
-  @JoinColumn(name = "accountId", referencedColumnName = "id")
   private Customer accountId;
 
   private String dateOfTransaction;

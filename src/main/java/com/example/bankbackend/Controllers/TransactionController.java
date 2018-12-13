@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/transactions")
 public class TransactionController {
+  private CustomerTransactionsService customerTransactionsService;
+
   @Autowired
-  CustomerTransactionsService customerTransactionsService;
+  public TransactionController(CustomerTransactionsService customerTransactionsService) {
+    this.customerTransactionsService = customerTransactionsService;
+  }
 
   @PostMapping("/send")
   public String makeTransaction(@RequestParam("moneyAmount") long moneyAmount, @RequestParam("senderId") long senderId, @RequestParam("receiverId") long receiverId)
@@ -28,8 +32,9 @@ public class TransactionController {
   }
 
   @GetMapping("/{id}/{transactionId}")
-  public String getDollazById() {
-    return "aDolla";
+  public List getDollazById(@PathVariable(name = "id") long customerId, @PathVariable(name = "transactionId") long transactionId) {
+    List<CustomerTransactions> transactionById = customerTransactionsService.getTransactionById(customerId, transactionId);
+    return transactionById;
   }
 
 }

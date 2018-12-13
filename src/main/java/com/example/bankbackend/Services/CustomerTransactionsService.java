@@ -9,5 +9,5 @@ public interface CustomerTransactionsService {
 
   List<CustomerTransactions> getAllTransactionsById(long customerId);
 
-  List<CustomerTransactions> getTransactionById(long transactionId);
+  List<CustomerTransactions> getTransactionById(long customerId, long transactionId);
 }
