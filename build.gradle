@@ -33,5 +33,9 @@ dependencies {
     runtimeOnly('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
     compile('org.json:json:20171018')
+    compile("org.springframework.boot:spring-boot-starter-security:1.4.1.RELEASE")
+    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-security:1.1.3.RELEASE")
+    compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.1.RELEASE")
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

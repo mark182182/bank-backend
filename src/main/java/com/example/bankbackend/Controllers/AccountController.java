@@ -15,7 +15,7 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/api/accounts")
-public class HomeController {
+public class AccountController {
   @Autowired
   CustomerService customerService;
 
