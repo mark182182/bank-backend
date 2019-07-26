@@ -15,7 +15,7 @@ public class LoginController {
   }
 
   @RequestMapping(value = "/api/logout")
-  public String logTheFuckOutPls() {
-    return "You are logged the fuck out. Rest now.";
+  public String logOut() {
+    return "You are logged out.";
   }
 }
